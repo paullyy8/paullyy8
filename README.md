@@ -1,0 +1,4 @@
+- 👋 Hi, I’m @paullyy8
+- 👀 I’m interested in HTML.
+- 🌱 I’m currently learning HTML , CSS , Python and Java
+-  📫 To reach me on social accounts follow this link. https://hydr.in/ox44 
