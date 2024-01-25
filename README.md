@@ -1,8 +1,6 @@
-(https://pbs.twimg.com/profile_banners/1310855281417490435/1706194798/1080x360)
-
 ### Hi there 👋, my name is Amit Paul
 #### CSE Student
-![CSE Student]
+![CSE Student](https://pbs.twimg.com/profile_banners/1310855281417490435/1706194798/1080x360)
 
 I am an ambitious and dedicated Computer Science Engineering student with a passion for mobile photography.
 
