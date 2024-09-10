@@ -1,0 +1,24 @@
+name: Update Uptime
+
+on:
+  schedule:
+    - cron: "0 0 * * *"  # Runs daily at midnight
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Calculate and update uptime
+        run: |
+          BIRTHDATE="2003-11-08"
+          TODAY=$(date +%Y-%m-%d)
+          UPTIME=$(dateutils.ddiff "$BIRTHDATE" "$TODAY" -f '%yy %mm %dd')
+          sed -i "s/{{ uptime }}/$UPTIME/g" README.md
+      - name: Push changes
+        run: |
+          git config --global user.name 'paullyy8'
+          git config --global user.email 'amitpaul112233@gmail.com'
+          git add README.md
+          git commit -m "Updated uptime (age)"
+          git push
