@@ -1,4 +1,4 @@
-name: Update Uptime
+name: Update Uptime and Stats
 
 on:
   schedule:
@@ -13,16 +13,34 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Install dateutils
-        run: sudo apt-get install dateutils
-
-      - name: Calculate and update uptime
+      - name: Calculate uptime
         run: |
           BIRTHDATE="2003-11-08"
           TODAY=$(date +%Y-%m-%d)
-          UPTIME=$(dateutils.ddiff "$BIRTHDATE" "$TODAY" -f '%yy %mm %dd')
+          UPTIME=$(echo $((($(date -d $TODAY +%s) - $(date -d $BIRTHDATE +%s)) / 86400)) | awk '{printf "%d days", $1}')
           echo "Uptime calculated: $UPTIME"
           sed -i "s/{{ uptime }}/$UPTIME/g" README.md
+
+      - name: Fetch GitHub stats
+        run: |
+          REPOS=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/user/repos?per_page=100 | jq '. | length')
+          COMMITS=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/paullyy8/paullyy8/commits?per_page=1 | jq '.[0].commit.committer.date' | wc -l)
+          STARS=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/users/paullyy8/repos | jq '.[] | .stargazers_count' | awk '{s+=$1} END {print s}')
+          FOLLOWERS=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/users/paullyy8 | jq '.followers')
+          LOC=$(grep -r -i -E '^[a-zA-Z0-9\_]+$' | wc -l)
+          
+          echo "GitHub Stats:"
+          echo "Repos: $REPOS"
+          echo "Commits: $COMMITS"
+          echo "Stars: $STARS"
+          echo "Followers: $FOLLOWERS"
+          echo "Lines of Code: $LOC"
+
+          sed -i "s/{{ repos }}/$REPOS/g" README.md
+          sed -i "s/{{ commits }}/$COMMITS/g" README.md
+          sed -i "s/{{ stars }}/$STARS/g" README.md
+          sed -i "s/{{ followers }}/$FOLLOWERS/g" README.md
+          sed -i "s/{{ loc }}/$LOC/g" README.md
 
       - name: Display README after update
         run: cat README.md
@@ -32,5 +50,5 @@ jobs:
           git config --global user.name 'paullyy8'
           git config --global user.email 'ap2952702@gmail.com'
           git add README.md
-          git commit -m "Updated uptime (age)"
+          git commit -m "Updated uptime and GitHub stats"
           git push
