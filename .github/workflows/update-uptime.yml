@@ -49,6 +49,5 @@ jobs:
           git config --global user.email 'ap2952702@gmail.com'
           git add README.md
           git commit -m "Updated uptime and GitHub stats"
-          git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}  # Using the token from secrets
+          git push https://paullyy8:${{ secrets.GH_TOKEN }}@github.com/paullyy8/paullyy8.git
+
