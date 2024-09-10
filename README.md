@@ -9,7 +9,7 @@
 paullyy8@github
 
 OS: macOS, Windows 10, Android
-Uptime: {{ uptime }}   
+Uptime: 20y 10m 2d   
 Kernel: Computer Science Engineering Student  
 IDE: VSCode, GitHub
 
@@ -22,11 +22,11 @@ Hobbies.Hardware: Building Custom PC Setups, Overclocking
 
 GitHub Stats:
 ________
-Repos: {{ repos }}  
-Commits: {{ commits }}  
-Stars: {{ stars }}  
-Followers: {{ followers }}  
-Lines of Code: {{ loc }}
+Repos: 7  
+Commits: 41  
+Stars: 1  
+Followers: 7  
+Lines of Code: 146
 
 ```
 <p><img align="left" src="https://github-readme-stats.vercel.app/api/top-langs?username=paullyy8&show_icons=true&locale=en&layout=compact&theme=dark&hide_border=true" alt="paullyy8" /></p>
