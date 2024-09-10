@@ -21,13 +21,16 @@ jobs:
           echo "Uptime calculated: $UPTIME"
           sed -i "s/{{ uptime }}/$UPTIME/g" README.md
 
+      - name: Install jq
+        run: sudo apt-get install jq
+
       - name: Fetch GitHub stats
         run: |
           REPOS=$(curl -s -H "Authorization: token ${{ secrets.SECRET_TOKEN }}" https://api.github.com/user/repos?per_page=100 | jq '. | length')
           COMMITS=$(curl -s -H "Authorization: token ${{ secrets.SECRET_TOKEN }}" https://api.github.com/repos/paullyy8/paullyy8/commits?per_page=1 | jq '.[0].commit.committer.date' | wc -l)
           STARS=$(curl -s -H "Authorization: token ${{ secrets.SECRET_TOKEN }}" https://api.github.com/users/paullyy8/repos | jq '.[] | .stargazers_count' | awk '{s+=$1} END {print s}')
           FOLLOWERS=$(curl -s -H "Authorization: token ${{ secrets.SECRET_TOKEN }}" https://api.github.com/users/paullyy8 | jq '.followers')
-          LOC=$(grep -r -i -E '^[a-zA-Z0-9\_]+$' | wc -l)
+          LOC=$(find . -name '*.c' -o -name '*.py' -o -name '*.html' -o -name '*.css' -o -name '*.js' | xargs wc -l | tail -n 1 | awk '{print $1}')
           
           echo "GitHub Stats:"
           echo "Repos: $REPOS"
