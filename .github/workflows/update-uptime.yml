@@ -23,10 +23,10 @@ jobs:
 
       - name: Fetch GitHub stats
         run: |
-          REPOS=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/user/repos?per_page=100 | jq '. | length')
-          COMMITS=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/paullyy8/paullyy8/commits?per_page=1 | jq '.[0].commit.committer.date' | wc -l)
-          STARS=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/users/paullyy8/repos | jq '.[] | .stargazers_count' | awk '{s+=$1} END {print s}')
-          FOLLOWERS=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/users/paullyy8 | jq '.followers')
+          REPOS=$(curl -s -H "Authorization: token ${{ secrets.SECRET_TOKEN }}" https://api.github.com/user/repos?per_page=100 | jq '. | length')
+          COMMITS=$(curl -s -H "Authorization: token ${{ secrets.SECRET_TOKEN }}" https://api.github.com/repos/paullyy8/paullyy8/commits?per_page=1 | jq '.[0].commit.committer.date' | wc -l)
+          STARS=$(curl -s -H "Authorization: token ${{ secrets.SECRET_TOKEN }}" https://api.github.com/users/paullyy8/repos | jq '.[] | .stargazers_count' | awk '{s+=$1} END {print s}')
+          FOLLOWERS=$(curl -s -H "Authorization: token ${{ secrets.SECRET_TOKEN }}" https://api.github.com/users/paullyy8 | jq '.followers')
           LOC=$(grep -r -i -E '^[a-zA-Z0-9\_]+$' | wc -l)
           
           echo "GitHub Stats:"
