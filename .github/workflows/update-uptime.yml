@@ -2,20 +2,32 @@ name: Update Uptime
 
 on:
   schedule:
-    - cron: "0 0 * * *"  # Runs daily at midnight
+    - cron: '0 0 * * *'  # Runs daily at midnight
+  workflow_dispatch:  # Allows manual triggering from the GitHub UI
 
 jobs:
   update-readme:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install dateutils
+        run: sudo apt-get install dateutils
+
       - name: Calculate and update uptime
         run: |
           BIRTHDATE="2003-11-08"
           TODAY=$(date +%Y-%m-%d)
           UPTIME=$(dateutils.ddiff "$BIRTHDATE" "$TODAY" -f '%yy %mm %dd')
+          echo "Uptime calculated: $UPTIME"
           sed -i "s/{{ uptime }}/$UPTIME/g" README.md
-      - name: Push changes
+
+      - name: Display README after update
+        run: cat README.md
+
+      - name: Commit and push changes
         run: |
           git config --global user.name 'paullyy8'
           git config --global user.email 'amitpaul112233@gmail.com'
