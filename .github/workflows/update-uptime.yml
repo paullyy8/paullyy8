@@ -30,7 +30,7 @@ jobs:
       - name: Commit and push changes
         run: |
           git config --global user.name 'paullyy8'
-          git config --global user.email 'amitpaul112233@gmail.com'
+          git config --global user.email 'ap2952702@gmail.com'
           git add README.md
           git commit -m "Updated uptime (age)"
           git push
