@@ -1,4 +1,4 @@
-name: Update Uptime and GitHub Stats
+name: Update Uptime
 
 on:
   schedule:
@@ -16,7 +16,10 @@ jobs:
       - name: Install dateutils
         run: sudo apt-get install dateutils
 
-      - name: Calculate and update uptime
+      - name: Install jq
+        run: sudo apt-get install -y jq
+
+      - name: Calculate uptime
         run: |
           BIRTHDATE="2003-11-08"
           TODAY=$(date +%Y-%m-%d)
@@ -24,16 +27,15 @@ jobs:
           echo "Uptime calculated: $UPTIME"
           sed -i "s/{{ uptime }}/$UPTIME/g" README.md
 
-      - name: Install jq for GitHub Stats
-        run: sudo apt-get install jq
-
       - name: Fetch GitHub stats
         run: |
-          REPOS=$(curl -s https://api.github.com/users/paullyy8/repos | jq length)
+          REPOS=$(curl -s https://api.github.com/users/paullyy8 | jq '.public_repos')
           COMMITS=$(curl -s https://api.github.com/search/commits?q=author:paullyy8 | jq '.total_count')
-          STARS=$(curl -s https://api.github.com/users/paullyy8/starred | jq length)
-          FOLLOWERS=$(curl -s https://api.github.com/users/paullyy8 | jq .followers)
-          LOC=$(git ls-files | xargs wc -l | tail -1 | awk '{print $1}')
+          STARS=$(curl -s https://api.github.com/users/paullyy8/starred | jq 'length')
+          FOLLOWERS=$(curl -s https://api.github.com/users/paullyy8 | jq '.followers')
+          LOC=$(curl -s https://api.github.com/repos/paullyy8/paullyy8 | jq '.size')
+
+          echo "GitHub Stats fetched: Repos=$REPOS, Commits=$COMMITS, Stars=$STARS, Followers=$FOLLOWERS, LOC=$LOC"
           sed -i "s/{{ repos }}/$REPOS/g" README.md
           sed -i "s/{{ commits }}/$COMMITS/g" README.md
           sed -i "s/{{ stars }}/$STARS/g" README.md
@@ -48,6 +50,14 @@ jobs:
           git config --global user.name 'paullyy8'
           git config --global user.email 'ap2952702@gmail.com'
           git add README.md
-          git commit -m "Updated uptime and GitHub stats"
-          git push https://paullyy8:${{ secrets.GH_TOKEN }}@github.com/paullyy8/paullyy8.git
+          
+          # Check if there are any changes
+          if git diff-index --quiet HEAD --; then
+            echo "No changes to commit"
+          else
+            git commit -m "Updated uptime and GitHub stats"
+            git push https://paullyy8:${{ secrets.GH_TOKEN }}@github.com/paullyy8/paullyy8.git
+          fi
 
+      - name: Post Checkout repository
+        run: echo "Completed the GitHub Action for uptime and GitHub stats."
