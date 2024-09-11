@@ -1,63 +1,39 @@
-name: Update Uptime
+name: update-readme
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # Runs daily at midnight
-  workflow_dispatch:  # Allows manual triggering from the GitHub UI
+    - cron: '0 0 * * *'  # Run daily at midnight
+  workflow_dispatch:
 
 jobs:
   update-readme:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
-      - name: Install dateutils
-        run: sudo apt-get install dateutils
+    - name: Install dateutils
+      run: sudo apt-get install dateutils
 
-      - name: Install jq
-        run: sudo apt-get install -y jq
+    - name: Calculate and update uptime
+      run: |
+        BIRTHDATE="2003-11-08"
+        TODAY=$(date +%Y-%m-%d)
+        UPTIME=$(dateutils.ddiff "$BIRTHDATE" "$TODAY" -f '%yy %mm %dd')
+        echo "Uptime calculated: $UPTIME"
+        sed -i "s/{{ uptime }}/$UPTIME/g" README.md
+        echo "Updated uptime in README.md: $UPTIME"
 
-      - name: Calculate uptime
-        run: |
-          BIRTHDATE="2003-11-08"
-          TODAY=$(date +%Y-%m-%d)
-          UPTIME=$(dateutils.ddiff "$BIRTHDATE" "$TODAY" -f '%yy %mm %dd')
-          echo "Uptime calculated: $UPTIME"
-          sed -i "s/{{ uptime }}/$UPTIME/g" README.md
+    - name: Display README after update
+      run: cat README.md
 
-      - name: Fetch GitHub stats
-        run: |
-          REPOS=$(curl -s https://api.github.com/users/paullyy8 | jq '.public_repos')
-          COMMITS=$(curl -s https://api.github.com/search/commits?q=author:paullyy8 | jq '.total_count')
-          STARS=$(curl -s https://api.github.com/users/paullyy8/starred | jq 'length')
-          FOLLOWERS=$(curl -s https://api.github.com/users/paullyy8 | jq '.followers')
-          LOC=$(curl -s https://api.github.com/repos/paullyy8/paullyy8 | jq '.size')
-
-          echo "GitHub Stats fetched: Repos=$REPOS, Commits=$COMMITS, Stars=$STARS, Followers=$FOLLOWERS, LOC=$LOC"
-          sed -i "s/{{ repos }}/$REPOS/g" README.md
-          sed -i "s/{{ commits }}/$COMMITS/g" README.md
-          sed -i "s/{{ stars }}/$STARS/g" README.md
-          sed -i "s/{{ followers }}/$FOLLOWERS/g" README.md
-          sed -i "s/{{ loc }}/$LOC/g" README.md
-
-      - name: Display README after update
-        run: cat README.md
-
-      - name: Commit and push changes
-        run: |
-          git config --global user.name 'paullyy8'
-          git config --global user.email 'ap2952702@gmail.com'
-          git add README.md
-          
-          # Check if there are any changes
-          if git diff-index --quiet HEAD --; then
-            echo "No changes to commit"
-          else
-            git commit -m "Updated uptime and GitHub stats"
-            git push https://paullyy8:${{ secrets.GH_TOKEN }}@github.com/paullyy8/paullyy8.git
-          fi
-
-      - name: Post Checkout repository
-        run: echo "Completed the GitHub Action for uptime and GitHub stats."
+    - name: Commit and push changes
+      run: |
+        git config --global user.name 'paullyy8'
+        git config --global user.email 'ap2952702@gmail.com'
+        git add README.md
+        git commit -m "Updated uptime and GitHub stats"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
