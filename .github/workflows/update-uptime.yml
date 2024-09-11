@@ -16,17 +16,24 @@ jobs:
     - name: Install dateutils
       run: sudo apt-get install dateutils
 
+    - name: Log current README.md before update
+      run: |
+        echo "Logging the current README.md before update:"
+        cat README.md
+
     - name: Calculate and update uptime
       run: |
         BIRTHDATE="2003-11-08"
         TODAY=$(date +%Y-%m-%d)
         UPTIME=$(dateutils.ddiff "$BIRTHDATE" "$TODAY" -f '%yy %mm %dd')
-        echo "Uptime calculated: $UPTIME"
+        echo "Calculated Uptime: $UPTIME"
         sed -i "s/{{ uptime }}/$UPTIME/g" README.md
-        echo "Updated uptime in README.md: $UPTIME"
+        echo "Updated uptime in README.md"
 
-    - name: Display README after update
-      run: cat README.md
+    - name: Log current README.md after update
+      run: |
+        echo "Logging the updated README.md after update:"
+        cat README.md
 
     - name: Commit and push changes
       run: |
