@@ -27,10 +27,19 @@ jobs:
         TODAY=$(date +%Y-%m-%d)
         UPTIME=$(dateutils.ddiff "$BIRTHDATE" "$TODAY" -f '%yy %mm %dd')
         echo "Calculated Uptime: $UPTIME"
+        
+        # Display the content that will be replaced
+        echo "Current uptime in README.md (before update):"
+        grep '{{ uptime }}' README.md
+        
+        # Update uptime in the README.md file
         sed -i "s/{{ uptime }}/$UPTIME/g" README.md
-        echo "Updated uptime in README.md"
+        
+        # Check if sed successfully made the change
+        echo "Current uptime in README.md (after update):"
+        grep "$UPTIME" README.md
 
-    - name: Log current README.md after update
+    - name: Log updated README.md
       run: |
         echo "Logging the updated README.md after update:"
         cat README.md
@@ -40,7 +49,7 @@ jobs:
         git config --global user.name 'paullyy8'
         git config --global user.email 'ap2952702@gmail.com'
         git add README.md
-        git commit -m "Updated uptime and GitHub stats"
-        git push
+        git commit -m "Updated uptime and GitHub stats" || echo "Nothing to commit"
+        git push || echo "No changes to push"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
