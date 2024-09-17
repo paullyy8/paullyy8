@@ -1,16 +1,3 @@
-<pre>
-                                  ___           ___           ___       ___       ___     
-                                 /\__\         /\  \         /\__\     /\__\     /\  \    
-                                /:/  /        /::\  \       /:/  /    /:/  /    /::\  \   
-                               /:/__/        /:/\:\  \     /:/  /    /:/  /    /:/\:\  \  
-                              /::\  \ ___   /::\~\:\  \   /:/  /    /:/  /    /:/  \:\  \ 
-                             /:/\:\  /\__\ /:/\:\ \:\__\ /:/__/    /:/__/    /:/__/ \:\__\
-                             \/__\:\/:/  / \:\~\:\ \/__/ \:\  \    \:\  \    \:\  \ /:/  /
-                                  \::/  /   \:\ \:\__\    \:\  \    \:\  \    \:\  /:/  / 
-                                  /:/  /     \:\ \/__/     \:\  \    \:\  \    \:\/:/  /  
-                                 /:/  /       \:\__\        \:\__\    \:\__\    \::/  /   
-                                 \/__/         \/__/         \/__/     \/__/     \/__/    
-</pre>
 [![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Courier+new&color=%23808080&size=40&width=800&duration=6969&lines=Welcome+to+my+profile!)](https://git.io/typing-svg)
 # <img src="https://raw.githubusercontent.com/iampavangandhi/iampavangandhi/master/gifs/Hi.gif" width="30px"> Hi there, I'm Amit
 <h3 align="center">I am an ambitious and dedicated Computer Science Engineering student with a passion for designing.</h3>
@@ -22,7 +9,7 @@
 ```yaml
 paullyy8@github
 
-OS: macOS, Windows 10, Android
+OS: macOS, Windows 10, Android Oreo
 Uptime: 20y 10m 9d   
 Kernel: Computer Science Engineering Student  
 IDE: VSCode, GitHub
@@ -32,14 +19,8 @@ Languages.Computer: HTML, CSS, JavaScript
 Languages.Real: English, Hindi, Bengali
 
 Hobbies.Software: Web Development, UI/UX Design  
-Hobbies.Hardware: Building Custom PC Setups, Overclocking 
+Hobbies.Hardware: Overclocking
 
-GitHub Stats:
-________
-Repos: 0  
-Commits: 0  
-Stars: 0  
-Followers:   
 Lines of Code: 146
 
 ```
