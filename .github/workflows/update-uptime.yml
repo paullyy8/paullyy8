@@ -1,55 +1,55 @@
-name: update-readme
+name: Update Uptime and GitHub Stats
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # Run daily at midnight
-  workflow_dispatch:
+    - cron: '0 0 * * *'  # Runs daily at midnight
+  workflow_dispatch:  # Allows manual triggering from the GitHub UI
 
 jobs:
   update-readme:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Install dateutils
-      run: sudo apt-get install dateutils
+      - name: Install dependencies
+        run: |
+          sudo apt-get install dateutils
+          sudo apt-get install gh
 
-    - name: Log current README.md before update
-      run: |
-        echo "Logging the current README.md before update:"
-        cat README.md
+      - name: Calculate and update uptime
+        run: |
+          BIRTHDATE="2003-11-08"
+          TODAY=$(date +%Y-%m-%d)
+          UPTIME=$(dateutils.ddiff "$BIRTHDATE" "$TODAY" -f '%yy %mm %dd')
+          echo "Calculated Uptime: $UPTIME"
+          # Use regex to find the current uptime value and replace it with the new one
+          sed -i "s/[0-9]\{2\}y [0-9]\{2\}m [0-9]\{1,2\}d/$UPTIME/g" README.md
 
-    - name: Calculate and update uptime
-      run: |
-        BIRTHDATE="2003-11-08"
-        TODAY=$(date +%Y-%m-%d)
-        UPTIME=$(dateutils.ddiff "$BIRTHDATE" "$TODAY" -f '%yy %mm %dd')
-        echo "Calculated Uptime: $UPTIME"
-        
-        # Display the content that will be replaced
-        echo "Current uptime in README.md (before update):"
-        grep '{{ uptime }}' README.md
-        
-        # Update uptime in the README.md file
-        sed -i "s/{{ uptime }}/$UPTIME/g" README.md
-        
-        # Check if sed successfully made the change
-        echo "Current uptime in README.md (after update):"
-        grep "$UPTIME" README.md
+      - name: Update GitHub stats
+        run: |
+          REPOS=$(gh repo list paullyy8 --limit 100 | wc -l)
+          COMMITS=$(gh api repos/paullyy8/paullyy8/commits | wc -l)
+          STARS=$(gh api user/starred | wc -l)
+          FOLLOWERS=$(gh api user | jq .followers)
+          echo "Repos: $REPOS"
+          echo "Commits: $COMMITS"
+          echo "Stars: $STARS"
+          echo "Followers: $FOLLOWERS"
+          # Replace stats in README.md
+          sed -i "s/Repos: [0-9]*/Repos: $REPOS/" README.md
+          sed -i "s/Commits: [0-9]*/Commits: $COMMITS/" README.md
+          sed -i "s/Stars: [0-9]*/Stars: $STARS/" README.md
+          sed -i "s/Followers: [0-9]*/Followers: $FOLLOWERS/" README.md
 
-    - name: Log updated README.md
-      run: |
-        echo "Logging the updated README.md after update:"
-        cat README.md
+      - name: Display README after update
+        run: cat README.md
 
-    - name: Commit and push changes
-      run: |
-        git config --global user.name 'paullyy8'
-        git config --global user.email 'ap2952702@gmail.com'
-        git add README.md
-        git commit -m "Updated uptime and GitHub stats" || echo "Nothing to commit"
-        git push || echo "No changes to push"
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'paullyy8'
+          git config --global user.email 'ap2952702@gmail.com'
+          git add README.md
+          git commit -m "Updated uptime and GitHub stats"
+          git push
