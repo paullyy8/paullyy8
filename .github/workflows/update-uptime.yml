@@ -18,6 +18,12 @@ jobs:
           sudo apt-get install dateutils
           sudo apt-get install gh
 
+      - name: Authenticate with GitHub CLI
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Uses your GitHub token
+        run: |
+          echo "$GH_TOKEN" | gh auth login --with-token
+
       - name: Calculate and update uptime
         run: |
           BIRTHDATE="2003-11-08"
@@ -29,7 +35,7 @@ jobs:
 
       - name: Update GitHub stats
         run: |
-          REPOS=$(gh repo list paullyy8 --limit 100 | wc -l)
+          REPOS=$(gh repo list --limit 100 | wc -l)
           COMMITS=$(gh api repos/paullyy8/paullyy8/commits | wc -l)
           STARS=$(gh api user/starred | wc -l)
           FOLLOWERS=$(gh api user | jq .followers)
