@@ -18,6 +18,12 @@ jobs:
           sudo apt-get install dateutils
           sudo apt-get install gh
 
+      - name: Authenticate GitHub CLI
+        run: |
+          echo "$GH_TOKEN" | gh auth login --with-token
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
       - name: Calculate and update uptime
         run: |
           BIRTHDATE="2003-11-08"
@@ -27,16 +33,19 @@ jobs:
           # Use regex to find the current uptime value and replace it with the new one
           sed -i "s/[0-9]\{2\}y [0-9]\{2\}m [0-9]\{1,2\}d/$UPTIME/g" README.md
 
-      - name: Update GitHub stats
+      - name: Fetch and update GitHub stats
         run: |
+          echo "Fetching GitHub stats..."
           REPOS=$(gh repo list --limit 100 | wc -l)
           COMMITS=$(gh api repos/paullyy8/paullyy8/commits | wc -l)
           STARS=$(gh api user/starred | wc -l)
           FOLLOWERS=$(gh api user | jq .followers)
+          
           echo "Repos: $REPOS"
           echo "Commits: $COMMITS"
           echo "Stars: $STARS"
           echo "Followers: $FOLLOWERS"
+
           # Replace stats in README.md
           sed -i "s/Repos: [0-9]*/Repos: $REPOS/" README.md
           sed -i "s/Commits: [0-9]*/Commits: $COMMITS/" README.md
@@ -51,5 +60,5 @@ jobs:
           git config --global user.name 'paullyy8'
           git config --global user.email 'ap2952702@gmail.com'
           git add README.md
-          git commit -m "Updated uptime and GitHub stats" --allow-empty  # Allow empty commits
+          git commit -m "Updated uptime and GitHub stats" --allow-empty
           git push
