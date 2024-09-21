@@ -10,7 +10,7 @@
 paullyy8@github
 
 OS: macOS, Windows 10, Android Oreo
-Uptime: 20y 10m 12d   
+Uptime: 20y 10m 13d   
 Kernel: Computer Science Engineering Student  
 IDE: VSCode, GitHub
 
