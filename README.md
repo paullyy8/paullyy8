@@ -22,7 +22,6 @@ Hobbies.Hardware: Overclocking , Undervolting
 Contact : 
 _______
 Github    : @paullyy8
-Instagram : @paullyy08
 Discord   : @paullyy08
 
 ```
