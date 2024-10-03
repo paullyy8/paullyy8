@@ -7,7 +7,7 @@ paullyy8@github
 _______________
 
 OS: macOS, Windows 10, Android Oreo
-Uptime: 20y 10m 24d   
+Uptime: 20y 10m 25d   
 Kernel: Computer Science Engineering Student  
 IDE: VSCode, Turbo C++, Sublime Text, Neo Vim
 Terminal : iTerm2 , Terminal.app, Kitty
