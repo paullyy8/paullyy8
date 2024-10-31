@@ -9,8 +9,8 @@ _______________
 OS: macOS, Windows 10, Android Oreo
 Uptime: 20y 11m 23d   
 Kernel: Computer Science Engineering Student  
-IDE: VSCode, Turbo C++, Sublime Text, Neo Vim
-Terminal : iTerm2 , Terminal.app, Kitty
+IDE: VSCode, Sublime Text, Neo Vim
+Terminal : Alacritty
 
 Languages.Programming: C, Python  
 Languages.Computer: HTML, CSS, Markdown, YAML  
