@@ -23,16 +23,20 @@ jobs:
           REPOSITORIES=$(echo "$STATS" | jq '.public_repos')
           FOLLOWERS=$(echo "$STATS" | jq '.followers')
           COMMIT_COUNT=$(curl -s "https://api.github.com/search/commits?q=author:$USER&sort=committer-date&order=desc" | jq '.total_count')
-          REPOS=$(curl -s "https://api.github.com/users/$USER/repos" | jq -r '.[].name')
-          
-          # Prepare the stats for replacement
-          REPOS_LIST=$(echo "$REPOS" | tr '\n' ', ')
 
+          # Calculate Lines of Code (added and removed) using git log and git diff
+          # We are using the "git log" command to calculate the lines added and removed
+          LINES_ADDED=$(git log --author="$USER" --pretty=tformat: --numstat | awk '{ added += $1 } END { print added }')
+          LINES_REMOVED=$(git log --author="$USER" --pretty=tformat: --numstat | awk '{ removed += $2 } END { print removed }')
+
+          # Prepare the stats for replacement
+          LINES_OF_CODE="++ $LINES_ADDED and -- $LINES_REMOVED"
+          
           # Replace the placeholders in README.md with the real data
           sed -i "s/!REPO_COUNT!/$REPOSITORIES/g" README.md
           sed -i "s/!FOLLOWERS!/$FOLLOWERS/g" README.md
           sed -i "s/!COMMITS!/$COMMIT_COUNT/g" README.md
-          sed -i "s/!CONTRIBUTED_REPOS!/$REPOS_LIST/g" README.md
+          sed -i "s/!LINES_OF_CODE!/$LINES_OF_CODE/g" README.md
 
       - name: Commit and push changes
         run: |
