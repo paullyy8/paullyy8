@@ -9,7 +9,7 @@ Kernel: Computer Science Engineering Student
 IDE: VSCode, Sublime Text, Neo Vim
 Terminal : Alacritty
 
-Languages.Programming: C, Python  
+Languages.Programming: C, Python, JavaScript
 Languages.Computer: HTML, CSS, Markdown, YAML  
 Languages.Real: English, Hindi
 
