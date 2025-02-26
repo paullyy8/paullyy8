@@ -24,7 +24,7 @@ Discord   : @paullyy08
 Repositories: 15
 Followers: 17
 Commits: 250
-Lines of Code: !LINES_OF_CODE!
+Lines of Code: ++ 172 and -- 0
 ```
 ---
 <div style="display: flex; flex-direction: row; justify-content: space-between;">
