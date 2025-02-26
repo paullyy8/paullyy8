@@ -3,8 +3,6 @@
 ```
 ```yaml
 paullyy8@github ------------------------
-_______________
-
 OS: macOS, Windows 10, Android Oreo
 Uptime: 21y 3m 18d   
 Kernel: Computer Science Engineering Student  
@@ -19,12 +17,10 @@ Hobbies.Software: Web Development, UI/UX Design
 Hobbies.Hardware: Overclocking , Undervolting
 
 - Find me @ :------------------------
-_______
 Github    : @paullyy8
 Discord   : @paullyy08
 
 - GitHub Stats:------------------------
-_______________
 Repositories: 15
 Followers: 17
 Commits: 250
