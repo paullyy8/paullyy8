@@ -24,7 +24,7 @@ Discord   : @paullyy08
 Repositories: 15
 Followers: 17
 Commits: 250
-Contributed Repos: birthday-wish,Blog-Page,CALC,Calculator,dots,Navbar,OIBSIP,paullyy8,personal,Random-Password-Generator,REFLEXY,SGP---College-Website,shorts-blocker,Stone-Paper-Scissors-Game,YouTube-downloader,
+Lines of Code: !LINES_OF_CODE!
 ```
 ---
 <div style="display: flex; flex-direction: row; justify-content: space-between;">
