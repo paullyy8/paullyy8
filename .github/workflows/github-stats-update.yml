@@ -1,0 +1,43 @@
+name: Update GitHub Stats
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Runs daily at midnight
+  workflow_dispatch:  # Allows manual triggering from the GitHub UI
+
+jobs:
+  update-stats:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Fetch GitHub Stats
+        run: |
+          # Fetch user details from GitHub API
+          USER="paullyy8"
+          STATS=$(curl -s "https://api.github.com/users/$USER")
+
+          # Extract relevant details
+          REPOSITORIES=$(echo "$STATS" | jq '.public_repos')
+          FOLLOWERS=$(echo "$STATS" | jq '.followers')
+          COMMIT_COUNT=$(curl -s "https://api.github.com/search/commits?q=author:$USER&sort=committer-date&order=desc" | jq '.total_count')
+          REPOS=$(curl -s "https://api.github.com/users/$USER/repos" | jq -r '.[].name')
+          
+          # Prepare the stats for replacement
+          REPOS_LIST=$(echo "$REPOS" | tr '\n' ', ')
+
+          # Replace the placeholders in README.md with the real data
+          sed -i "s/!REPO_COUNT!/$REPOSITORIES/g" README.md
+          sed -i "s/!FOLLOWERS!/$FOLLOWERS/g" README.md
+          sed -i "s/!COMMITS!/$COMMIT_COUNT/g" README.md
+          sed -i "s/!CONTRIBUTED_REPOS!/$REPOS_LIST/g" README.md
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'paullyy8'
+          git config --global user.email 'ap2952702@gmail.com'
+          git add README.md
+          git commit -m "Updated GitHub Stats"
+          git push
