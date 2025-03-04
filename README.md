@@ -4,7 +4,7 @@
 ```yaml
 paullyy8@github ------------------------
 OS: macOS, Windows 10, Android Oreo
-Uptime: 21y 3m 23d   
+Uptime: 21y 3m 24d   
 Kernel: Computer Science Engineering Student  
 IDE: VSCode, Sublime Text, Neo Vim
 Terminal : Alacritty
