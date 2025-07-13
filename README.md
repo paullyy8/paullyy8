@@ -1,6 +1,6 @@
 # Amit 🌻
 
-Hello! I'm a 21y 8m 4d old student. I build personal projects that serve as practical tools in my everyday life, supporting both my studies and work.
+Hello! I'm a 21y 8m 5d old student. I build personal projects that serve as practical tools in my everyday life, supporting both my studies and work.
 
 ### Find me @
 Github    : @paullyy8
