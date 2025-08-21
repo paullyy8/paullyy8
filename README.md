@@ -1,6 +1,6 @@
 # Amit 🌻
 
-Hello! I'm a 21y 9m 12d old student.I like programming, especially system-level languages. I don’t code for work, but I love building personal projects that help me out in my daily life, whether it’s for studies or just making things easier.
+Hello! I'm a 21y 9m 13d old student.I like programming, especially system-level languages. I don’t code for work, but I love building personal projects that help me out in my daily life, whether it’s for studies or just making things easier.
 
 ## My Skills 👨🏻‍💻
 [![My Skills](https://skillicons.dev/icons?i=c,python,js,html,css)](https://skillicons.dev)
