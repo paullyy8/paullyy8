@@ -1,10 +1,10 @@
 # Amit 🌻
 
 👤 About Me:  
-Hello! I'm a 21y 9m 15d old student.
+• Hello! I'm a 21y 9m 15d old student.
 
 💻 My Interests:  
-• I like programming, especially system-level languages. 
+• I like programming, especially system-level languages. <br>
 • I also like unix , reverse enginnering , overclocking , undervolting. 
 
 ⚙️ What I Do:  
