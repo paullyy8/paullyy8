@@ -1,6 +1,6 @@
 # Amit 🌻
 
-## 👤 About Me:  
+<h1> 👤 About Me: <h1> 
 • Hello! I'm a 21y 9m 15d old student.
 
 ## 💻 My Interests:  
