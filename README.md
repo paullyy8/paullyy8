@@ -5,7 +5,7 @@
 
 💻 My Interests:  
 • I like programming, especially system-level languages. <br>
-• I also like unix , reverse enginnering , overclocking , undervolting. 
+• I also like unix , reverse enginnering , overclocking , undervolting and many more.
 
 ⚙️ What I Do:  
 • I don’t code for work, but I love building personal projects that help me out in my daily life, whether it’s for studies or just making things easier.
