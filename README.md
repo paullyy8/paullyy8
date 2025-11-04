@@ -1,7 +1,7 @@
 # Amit 🌻
 
 ### 👤 About Me:  
-• Hello! I'm a 21y 11m 26d old student.
+• Hello! I'm a 21y 11m 27d old student.
 
 ### 💻 My Interests:  
 • I like programming, especially system-level languages. <br>
